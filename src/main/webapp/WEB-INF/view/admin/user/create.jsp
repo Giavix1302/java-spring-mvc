@@ -83,10 +83,8 @@
                                                     <div class="col-6 mb-3">
                                                         <label for="avatarFile" class="form-label">Avatar:</label>
                                                         <input class="form-control" type="file" id="avatarFile"
-                                                            accept=".png, .jpg, .jpeg"
-                                                            name="avatarFile"
-                                                            multiple="false"
-                                                            />
+                                                            accept=".png, .jpg, .jpeg" name="avatarFile"
+                                                            multiple="false" />
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
