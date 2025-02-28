@@ -48,46 +48,66 @@
                         enctype="multipart/form-data">
                         <div class="row">
                           <div class="col-6 mb-3">
+                            <c:set var="errorName">
+                              <form:errors path="name" cssClass="invalid-feedback" />
+                            </c:set>
                             <label class="form-label">Name:</label>
-                            <form:input type="text" class="form-control" path="name" />
+                            <form:input type="text" class="form-control ${not empty errorName ? 'is-invalid' : ''}" path="name" />
+                            ${errorName}
                           </div>
                           <div class="col-6 mb-3">
+                            <c:set var="errorPrice">
+                              <form:errors path="price" cssClass="invalid-feedback" />
+                            </c:set>
                             <label class="form-label">Price:</label>
-                            <form:input type="text" class="form-control" path="" />
+                            <form:input type="text" class="form-control ${not empty errorPrice ? 'is-invalid' : ''}" path="price" />
+                            ${errorPrice}
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-12 mb-3">
+                            <c:set var="errorDetailDesc">
+                              <form:errors path="detailDesc" cssClass="invalid-feedback" />
+                            </c:set>
                             <label class="form-label">Detail description:</label>
-                            <!-- <form:input type="text" class="form-control" path="" /> -->
-                            <textarea class="form-control" placeholder="" id="" style="height: 80px"></textarea>
+                            <form:textarea class="form-control ${not empty errorDetailDesc ? 'is-invalid' : ''}"  style="height: 80px"
+                              path="detailDesc"></form:textarea>
+                            ${errorDetailDesc}
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-6 mb-3">
+                            <c:set var="errorShortDesc">
+                              <form:errors path="shortDesc" cssClass="invalid-feedback" />
+                            </c:set>
                             <label class="form-label">Short description:</label>
-                            <form:input type="text" class="form-control" path="" />
+                            <form:input type="text" class="form-control ${not empty errorShortDesc ? 'is-invalid' : ''}" path="shortDesc" />
+                            ${errorShortDesc}
                           </div>
                           <div class="col-6 mb-3">
+                            <c:set var="errorQuantity">
+                              <form:errors path="quantity" cssClass="invalid-feedback" />
+                            </c:set>
                             <label class="form-label">Quantity:</label>
-                            <form:input type="text" class="form-control" path="" />
+                            <form:input type="text" class="form-control ${not empty errorQuantity ? 'is-invalid' : ''}" path="quantity" />
+                            ${errorQuantity}
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-6 mb-3">
                             <label class="form-label">Factory:</label>
-                            <form:select class="form-select" path="">
-                              <form:option value="">Apple (Macbook)</form:option>
-                              <form:option value="">Asus</form:option>
-                              <form:option value="">Lenovo</form:option>
+                            <form:select class="form-select" path="factory">
+                              <form:option value="apple">Apple (Macbook)</form:option>
+                              <form:option value="asus">Asus</form:option>
+                              <form:option value="lenovo">Lenovo</form:option>
                             </form:select>
                           </div>
                           <div class="col-6 mb-3">
                             <label class="form-label">Target:</label>
-                            <form:select class="form-select" path="">
-                              <form:option value="">Gaming</form:option>
-                              <form:option value="">Sinh viên - văn phòng</form:option>
-                              <form:option value="">Thiết kế đồ họa</form:option>
+                            <form:select class="form-select" path="target">
+                              <form:option value="gaming">Gaming</form:option>
+                              <form:option value="SV - VP">Sinh viên - văn phòng</form:option>
+                              <form:option value="TKDH">Thiết kế đồ họa</form:option>
                             </form:select>
                           </div>
                         </div>
