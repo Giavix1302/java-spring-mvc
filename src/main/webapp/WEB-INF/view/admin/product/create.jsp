@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="  - Dự án laptopshop" />
         <meta name="author" content=" " />
-        <title>Create User</title>
+        <title>Create product</title>
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -37,7 +37,7 @@
                 <h1 class="mt-4">Manage Product</h1>
                 <ol class="breadcrumb mb-4">
                   <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                  <li class="breadcrumb-item"><a href="/admin/user">List product</a></li>
+                  <li class="breadcrumb-item"><a href="/admin/product">List product</a></li>
                   <li class="breadcrumb-item active">Create product</li>
                 </ol>
                 <div class="container mt-1">
@@ -52,7 +52,8 @@
                               <form:errors path="name" cssClass="invalid-feedback" />
                             </c:set>
                             <label class="form-label">Name:</label>
-                            <form:input type="text" class="form-control ${not empty errorName ? 'is-invalid' : ''}" path="name" />
+                            <form:input type="text" class="form-control ${not empty errorName ? 'is-invalid' : ''}"
+                              path="name" />
                             ${errorName}
                           </div>
                           <div class="col-6 mb-3">
@@ -60,7 +61,8 @@
                               <form:errors path="price" cssClass="invalid-feedback" />
                             </c:set>
                             <label class="form-label">Price:</label>
-                            <form:input type="text" class="form-control ${not empty errorPrice ? 'is-invalid' : ''}" path="price" />
+                            <form:input type="text" class="form-control ${not empty errorPrice ? 'is-invalid' : ''}"
+                              path="price" />
                             ${errorPrice}
                           </div>
                         </div>
@@ -70,8 +72,8 @@
                               <form:errors path="detailDesc" cssClass="invalid-feedback" />
                             </c:set>
                             <label class="form-label">Detail description:</label>
-                            <form:textarea class="form-control ${not empty errorDetailDesc ? 'is-invalid' : ''}"  style="height: 80px"
-                              path="detailDesc"></form:textarea>
+                            <form:textarea class="form-control ${not empty errorDetailDesc ? 'is-invalid' : ''}"
+                              style="height: 80px" path="detailDesc"></form:textarea>
                             ${errorDetailDesc}
                           </div>
                         </div>
@@ -81,7 +83,8 @@
                               <form:errors path="shortDesc" cssClass="invalid-feedback" />
                             </c:set>
                             <label class="form-label">Short description:</label>
-                            <form:input type="text" class="form-control ${not empty errorShortDesc ? 'is-invalid' : ''}" path="shortDesc" />
+                            <form:input type="text" class="form-control ${not empty errorShortDesc ? 'is-invalid' : ''}"
+                              path="shortDesc" />
                             ${errorShortDesc}
                           </div>
                           <div class="col-6 mb-3">
@@ -89,7 +92,8 @@
                               <form:errors path="quantity" cssClass="invalid-feedback" />
                             </c:set>
                             <label class="form-label">Quantity:</label>
-                            <form:input type="text" class="form-control ${not empty errorQuantity ? 'is-invalid' : ''}" path="quantity" />
+                            <form:input type="text" class="form-control ${not empty errorQuantity ? 'is-invalid' : ''}"
+                              path="quantity" />
                             ${errorQuantity}
                           </div>
                         </div>
