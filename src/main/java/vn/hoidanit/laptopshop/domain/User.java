@@ -36,10 +36,10 @@ public class User {
     @Size(min = 2, message = "Fullname phải có tối thiểu 2 kí tự")
     private String fullName;
 
-    @NotNull
+
     private String address;
 
-    @NotNull
+
     private String phone;
     private String avatar;
 
