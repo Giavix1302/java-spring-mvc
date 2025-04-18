@@ -27,30 +27,29 @@
                         <h3 class="text-center font-weight-light my-4">Login</h3>
                       </div>
                       <div class="card-body">
-                        <form:form action="/login" method="post" modelAttribute="loginUser">
-                          <c:set var="errorEmail">
-                            <form:errors path="email" cssClass="invalid-feedback" />
-                          </c:set>
-                          <c:set var="errorPassword">
-                            <form:errors path="password" cssClass="invalid-feedback" />
-                          </c:set>
+                        <form action="/login" method="post">
+                          <c:if test="${param.error != null}">
+                            <div class="my-2" style="color: red;">Invalid email or password.</div>
+                          </c:if>
+
                           <div class="form-floating mb-3">
-                            <form:input path="email" class="form-control ${not empty errorEmail ? 'is-invalid' : ''}"
-                              id="inputEmail" type="email" placeholder="name@example.com" />
+                            <input name="username" class="form-control " id="inputEmail" type="email"
+                              placeholder="name@example.com" />
                             <label for="inputEmail">Email address</label>
-                            ${errorEmail}
+
                           </div>
                           <div class="form-floating mb-3">
-                            <form:input path="password"
-                              class="form-control ${not empty errorPassword ? 'is-invalid' : ''}" id="inputPassword"
-                              type="password" placeholder="Password" />
+                            <input name="password" class="form-control " id="inputPassword" type="password"
+                              placeholder="Password" />
                             <label for="inputPassword">Password</label>
-                            ${errorPassword}
+                          </div>
+                          <div>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                           </div>
                           <div class="mt-4 mb-0">
                             <button type="submit" class="w-100 btn btn-primary btn-block">Login</button>
                           </div>
-                        </form:form>
+                        </form>
                       </div>
                       <div class="card-footer text-center py-3">
                         <div class="small"><a href="/register">Need an account? Sign up!</a></div>
