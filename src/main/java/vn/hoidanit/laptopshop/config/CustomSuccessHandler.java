@@ -25,7 +25,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
   @Autowired
   private UserService userService;
 
-
   private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
   protected String determineTargetUrl(final Authentication authentication) {
@@ -72,7 +71,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
     }
 
     redirectStrategy.sendRedirect(request, response, targetUrl);
-    clearAuthenticationAttributes(request);
+    clearAuthenticationAttributes(request, authentication);
   }
 
 }
