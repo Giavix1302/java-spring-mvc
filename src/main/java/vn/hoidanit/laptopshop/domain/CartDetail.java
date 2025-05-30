@@ -14,11 +14,11 @@ public class CartDetail {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private long id;
 
-  private Long quantity;
+  private long quantity;
 
-  private Double price;
+  private double price;
 
   // cart_id
   @ManyToOne
