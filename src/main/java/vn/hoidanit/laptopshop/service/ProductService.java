@@ -154,20 +154,29 @@ public class ProductService {
       String receiverName,
       String receiverAddress,
       String receiverPhone) {
-    Order order = new Order();
-    order.setUser(user);
-    order.setReceiverName(receiverName);
-    order.setReceiverAddress(receiverAddress);
-    order.setReceiverPhone(receiverPhone);
-    this.orderRepository.save(order);
 
     // create order detail
     // 1. get cart by user
     Cart cart = this.cartRepository.findByUser(user);
-    if(cart != null) {
+    if (cart != null) {
       List<CartDetail> cartDetail = cart.getCartDetails();
-      if(cartDetail != null) {
-        for(CartDetail cd : cartDetail) {
+      if (cartDetail != null) {
+
+        Order order = new Order();
+        order.setUser(user);
+        order.setReceiverName(receiverName);
+        order.setReceiverAddress(receiverAddress);
+        order.setReceiverPhone(receiverPhone);
+        order.setStatus("PENDING");
+        
+        double sum = 0;
+        for (CartDetail cd : cartDetail) {
+          sum += cd.getPrice();
+        }
+        this.orderRepository.save(order);
+        order.setTotalPrice(sum);
+
+        for (CartDetail cd : cartDetail) {
           OrderDetail orderDetail = new OrderDetail();
           orderDetail.setOrder(order);
           orderDetail.setProduct(cd.getProduct());
@@ -176,7 +185,7 @@ public class ProductService {
           this.orderDetailRepository.save(orderDetail);
         }
         // 2 delete cart detail and cart
-        for(CartDetail cd : cartDetail) {
+        for (CartDetail cd : cartDetail) {
           this.cartDetailRepository.deleteById(cd.getId());
         }
         this.cartRepository.deleteById(cart.getId());

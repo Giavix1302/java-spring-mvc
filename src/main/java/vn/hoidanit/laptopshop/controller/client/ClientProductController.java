@@ -131,7 +131,8 @@ public class ClientProductController {
   }
 
   @GetMapping("/thanks")
-  public String getThanksPage(@RequestParam String param) {
+  public String getThanksPage(Model model) {
+
       return "client/cart/thanks";
   }
   
