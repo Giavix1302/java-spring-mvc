@@ -92,7 +92,7 @@ public class SecurityConfiguration {
             DispatcherType.INCLUDE)
         .permitAll()
 
-        .requestMatchers("/", "/login", "/product/**", "/client/**", "/css/**", "/js/**", "/images/**")
+        .requestMatchers("/", "/login", "/product/**", "register", "/client/**", "/css/**", "/js/**", "/images/**")
         .permitAll()
 
         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -105,7 +105,7 @@ public class SecurityConfiguration {
             .maximumSessions(1)
             .maxSessionsPreventsLogin(false))
 
-        .logout(logout->logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+        .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
 
         .rememberMe(r -> r.rememberMeServices(rememberMeServices())
             .key("uniqueAndSecret")
