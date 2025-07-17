@@ -1,7 +1,11 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +22,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
@@ -37,8 +42,6 @@ public class UserController {
 
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        List<User> listUser = this.userService.getAllUser();
-        System.out.println(listUser);
         return "hello";
     }
 
@@ -57,7 +60,8 @@ public class UserController {
         // validate
         // List<FieldError> errors = bindingResult.getFieldErrors();
         // for (FieldError error : errors) {
-        //     System.out.println(">>>>>>>>>>>>" + error.getField() + " - " + error.getDefaultMessage());
+        // System.out.println(">>>>>>>>>>>>" + error.getField() + " - " +
+        // error.getDefaultMessage());
         // }
 
         if (bindingResult.hasErrors()) {
@@ -75,9 +79,25 @@ public class UserController {
 
     // list user
     @RequestMapping("/admin/user")
-    public String getUserPage(Model model) {
-        List<User> users = this.userService.getAllUser();
+    public String getUserPage(Model model, @RequestParam("page") Optional<String> pageOptional) {
+
+        int page = 1;
+        try {
+            if (pageOptional.isPresent()) {
+                page = Integer.parseInt(pageOptional.get());
+            } else {
+
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        Pageable pageable = PageRequest.of(page - 1, 2);
+        Page<User> prs = this.userService.getAllUser(pageable);
+        List<User> users = prs.getContent();
+
         model.addAttribute("users", users);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPage", prs.getTotalPages());
         return "admin/user/show";
     }
 
