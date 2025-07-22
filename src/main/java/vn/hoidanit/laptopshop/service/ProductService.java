@@ -19,6 +19,7 @@ import vn.hoidanit.laptopshop.repository.CartRepository;
 import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
 import vn.hoidanit.laptopshop.repository.OrderRepository;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
+import vn.hoidanit.laptopshop.service.specification.ProductSpecs;
 
 @Service
 public class ProductService {
@@ -45,15 +46,30 @@ public class ProductService {
   }
 
   public Product handleSaveProduct(Product product) {
-    Product _product = this.productRepository.save(product);
-    System.out.println("Product saved: " + _product);
-    return _product;
+    return this.productRepository.save(product);
   }
 
   public Page<Product> getAllProduct(Pageable pageable) {
     return this.productRepository.findAll(pageable);
   }
 
+  //
+  public Page<Product> getAllProductWithSpec(Pageable pageable, String name) {
+    return this.productRepository.findAll(ProductSpecs.nameLike(name), pageable);
+  }
+
+  public Page<Product> getAllProductWithMinPrice(Pageable pageable, Number minPrice) {
+    return this.productRepository.findAll(ProductSpecs.minPrice(minPrice), pageable);
+  }
+
+  public Page<Product> getAllProductWithMaxPrice(Pageable pageable, Number maxPrice) {
+    return this.productRepository.findAll(ProductSpecs.maxPrice(maxPrice), pageable);
+  }
+
+  public Page<Product> getAllProductWithFactory(Pageable pageable, List<String> factories) {
+    return this.productRepository.findAll(ProductSpecs.equalFactory(factories), pageable);
+  }
+  //
   public Optional<Product> getProductById(Long id) {
     return this.productRepository.findById(id);
   }

@@ -154,7 +154,15 @@ public class ClientProductController {
   }
 
   @GetMapping("/products")
-  public String getProductPage(Model model, @RequestParam("page") Optional<String> pageOptional) {
+  public String getProductPage(
+      Model model,
+      @RequestParam("page") Optional<String> pageOptional,
+      @RequestParam("name") Optional<String> nameOptional,
+      @RequestParam("min-price") Optional<String> minPriceOptional,
+      @RequestParam("max-price") Optional<String> maxPriceOptional,
+      @RequestParam("factory") Optional<List<String>> factoryOptional
+
+  ) {
     int page = 1;
     try {
       if (pageOptional.isPresent()) {
@@ -169,7 +177,26 @@ public class ClientProductController {
     }
 
     Pageable pageable = PageRequest.of(page - 1, 6);
-    Page<Product> prs = this.productService.getAllProduct(pageable);
+
+    String name = nameOptional.isPresent() ? nameOptional.get() : "";
+
+    Double minPrice = minPriceOptional.isPresent() ? Double.parseDouble(minPriceOptional.get()) : 0;
+
+    // Page<Product> prs = this.productService.getAllProductWithSpec(pageable,
+    // name);
+    Page<Product> prs = null;
+
+    if (minPriceOptional.isPresent()) {
+      prs = this.productService.getAllProductWithMinPrice(pageable, minPrice);
+    } else if (maxPriceOptional.isPresent()) {
+      prs = this.productService.getAllProductWithMaxPrice(pageable, Double.parseDouble(maxPriceOptional.get()));
+    } else if (factoryOptional.isPresent()) {
+      System.out.println("-------------------------" + factoryOptional.get());
+      // prs = this.productService.getAllProductWithFactory(pageable, factoryOptional.get());
+    } else {
+      prs = this.productService.getAllProductWithSpec(pageable, name);
+    }
+    prs = this.productService.getAllProductWithSpec(pageable, name);
     List<Product> products = prs.getContent();
 
     model.addAttribute("products", products);
