@@ -3,6 +3,7 @@ package vn.hoidanit.laptopshop.controller.client;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -158,10 +159,10 @@ public class ClientProductController {
       Model model,
       @RequestParam("page") Optional<String> pageOptional,
       @RequestParam("name") Optional<String> nameOptional,
-      @RequestParam("min-price") Optional<String> minPriceOptional,
-      @RequestParam("max-price") Optional<String> maxPriceOptional,
-      @RequestParam("factory") Optional<List<String>> factoryOptional
-
+      @RequestParam("price") Optional<String> priceOptional,
+      @RequestParam("factory") Optional<String> factoryOptional,
+      @RequestParam("target") Optional<String> targetOptional,
+      @RequestParam("sort") Optional<String> sortOptional
   ) {
     int page = 1;
     try {
@@ -176,27 +177,54 @@ public class ClientProductController {
       // TODO: handle exception
     }
 
-    Pageable pageable = PageRequest.of(page - 1, 6);
+    Pageable pageable = PageRequest.of(page - 1, 60);
 
     String name = nameOptional.isPresent() ? nameOptional.get() : "";
+    Page<Product> prs = this.productService.getAllProductWithSpec(pageable,
+    name);
 
-    Double minPrice = minPriceOptional.isPresent() ? Double.parseDouble(minPriceOptional.get()) : 0;
+    // case: min price
+    // Double minPrice = minPriceOptional.isPresent() ?
+    // Double.parseDouble(minPriceOptional.get()) : 0;
+    // Page<Product> prs = this.productService.getAllProductWithMinPrice(pageable,
+    // minPrice);
 
-    // Page<Product> prs = this.productService.getAllProductWithSpec(pageable,
-    // name);
-    Page<Product> prs = null;
+    // case: max price
+    // Double maxPrice = maxPriceOptional.isPresent() ? Double.parseDouble(maxPriceOptional.get()) : 0;
+    // Page<Product> prs = this.productService.getAllProductWithMaxPrice(pageable, maxPrice);
 
-    if (minPriceOptional.isPresent()) {
-      prs = this.productService.getAllProductWithMinPrice(pageable, minPrice);
-    } else if (maxPriceOptional.isPresent()) {
-      prs = this.productService.getAllProductWithMaxPrice(pageable, Double.parseDouble(maxPriceOptional.get()));
-    } else if (factoryOptional.isPresent()) {
-      System.out.println("-------------------------" + factoryOptional.get());
-      // prs = this.productService.getAllProductWithFactory(pageable, factoryOptional.get());
-    } else {
-      prs = this.productService.getAllProductWithSpec(pageable, name);
-    }
-    prs = this.productService.getAllProductWithSpec(pageable, name);
+
+    // case: factory
+    // String factory = factoryOptional.isPresent() ? factoryOptional.get() : "";
+    // Page<Product> prs = this.productService.getAllProductWithFactory(pageable, factory);
+
+    // case: many factory
+    // List<String> factories = Arrays.asList(factoryOptional.get().split(","));
+    // Page<Product> prs = this.productService.getAllProductWithFactory(pageable, factories);
+
+    // case: min < price < max
+    // String price = priceOptional.isPresent() ? priceOptional.get() : "";
+    // Page<Product> prs = this.productService.getAllProductWithPriceRange(pageable, price);
+
+    // case many min < price < max
+    // List<String> prices = Arrays.asList(priceOptional.get().split(","));
+    // Page<Product> prs = this.productService.getAllProductWithPriceRange(pageable, prices);
+
+
+    // if (minPriceOptional.isPresent()) {
+    // prs = this.productService.getAllProductWithMinPrice(pageable, minPrice);
+    // } else if (maxPriceOptional.isPresent()) {
+    // prs = this.productService.getAllProductWithMaxPrice(pageable,
+    // Double.parseDouble(maxPriceOptional.get()));
+    // } else if (factoryOptional.isPresent()) {
+    // System.out.println("-------------------------" + factoryOptional.get());
+    // // prs = this.productService.getAllProductWithFactory(pageable,
+    // // factoryOptional.get());
+    // } else {
+    // prs = this.productService.getAllProductWithSpec(pageable, name);
+    // }
+    // prs = this.productService.getAllProductWithSpec(pageable, name);
+
     List<Product> products = prs.getContent();
 
     model.addAttribute("products", products);

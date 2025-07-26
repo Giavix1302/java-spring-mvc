@@ -44,8 +44,9 @@
                           <div class="row mb-3">
                             <div class="col-md-6">
                               <div class="form-floating mb-3 mb-md-0">
-                                <form:input class="form-control ${not empty errorFirstName ? 'is-invalid' : ''}" id="inputFirstName" type="text"
-                                  placeholder="Enter your first name" path="firstName" />
+                                <form:input class="form-control ${not empty errorFirstName ? 'is-invalid' : ''}"
+                                  id="inputFirstName" type="text" placeholder="Enter your first name"
+                                  path="firstName" />
                                 <label for="inputFirstName">First name</label>
                                 ${errorFirstName}
                               </div>
