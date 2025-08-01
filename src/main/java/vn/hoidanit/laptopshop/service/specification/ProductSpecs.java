@@ -27,12 +27,15 @@ public class ProductSpecs {
   public static Specification<Product> matchListFactory(List<String> factories) {
     return (root, query, criteriaBuilder) -> criteriaBuilder.in(root.get(Product_.FACTORY)).value(factories);
   }
-  
+
+  public static Specification<Product> matchListTarget(List<String> targets) {
+    return (root, query, criteriaBuilder) -> criteriaBuilder.in(root.get(Product_.TARGET)).value(targets);
+  }
+
   public static Specification<Product> priceRange(double min, double max) {
     return (root, query, criteriaBuilder) -> criteriaBuilder.and(
-      criteriaBuilder.gt(root.get(Product_.PRICE), min),
-      criteriaBuilder.le(root.get(Product_.PRICE), max)
-    );
+        criteriaBuilder.gt(root.get(Product_.PRICE), min),
+        criteriaBuilder.le(root.get(Product_.PRICE), max));
   }
 
   public static Specification<Product> priceRanges(double min, double max) {
